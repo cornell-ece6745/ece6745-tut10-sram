@@ -1,6 +1,18 @@
 #=========================================================================
 # tut10-sram
 #=========================================================================
+# These are the steps required to generate the Verilog and
+# corresponding Verilog test benches.
+#
+#  % mkdir -p $TOPIDR/sim/build
+#  % cd $TOPIDR/sim/build
+#  % pytest ../tut10_sram/test/SRAMMinion_test.py --test-verilog --dump-vtb
+#
+#  % ../tut10_sram/sram-sim --impl rtl --input random \
+#      --translate --dump-vtb
+#  % ../tut10_sram/sram-sim --impl rtl --input allzero \
+#      --translate --dump-vtb
+#
 
 #-------------------------------------------------------------------------
 # steps

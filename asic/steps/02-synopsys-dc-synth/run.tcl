@@ -40,9 +40,9 @@ set compile_seqmap_honor_sync_set_reset true
 
 set_svf -off
 
-# Don't use scan flipflops
+# Don't use scan flipflops or scan clock-gating cells
 
-set_dont_use {
+set_dont_use -power {
   NangateOpenCellLibrary/SDFF_X1
   NangateOpenCellLibrary/SDFF_X2
   NangateOpenCellLibrary/SDFFS_X1
@@ -51,6 +51,10 @@ set_dont_use {
   NangateOpenCellLibrary/SDFFR_X2
   NangateOpenCellLibrary/SDFFRS_X1
   NangateOpenCellLibrary/SDFFRS_X2
+  NangateOpenCellLibrary/CLKGATETST_X1
+  NangateOpenCellLibrary/CLKGATETST_X2
+  NangateOpenCellLibrary/CLKGATETST_X4
+  NangateOpenCellLibrary/CLKGATETST_X8
 }
 
 #-------------------------------------------------------------------------

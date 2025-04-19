@@ -42,7 +42,7 @@ setDelayCalMode -SIAware false
 
 setOptMode -usefulSkew false
 
-# Add in an addition hold target slack to force Cadence Innovus to
+# Add in additional hold target slack to force Cadence Innovus to
 # work harder; this way if it misses by a little we will still end up
 # with positive hold slack.
 
@@ -86,11 +86,19 @@ floorPlan {{ floorplan | default("-r 1.0 0.70 4.0 4.0 4.0 4.0") }}
 
 # Add a small halo around all SRAMs to help with congestion
 
-addHaloToBlock 2.4 2.4 2.4 2.4 -allMacro
+addHaloToBlock 4.8 4.8 4.8 4.8 -allMacro
 
-# Place the design with preliminary routing
+{% if srams is defined %}
+# Preliminary concurrent placement of standard cells and SRAMs
 
-place_design
+set_macro_place_constraint -pg_resource_model {metal1 0.2}
+place_design -concurrent_macros
+refine_macro_place
+
+{% endif %}
+# Place and optimize the design 
+
+place_opt_design
 
 # Add tiehi/tielo cells which are used to connect constant values to
 # either vdd or ground.
@@ -156,7 +164,7 @@ set_ccopt_property update_io_latency {{ update_io_latency | default("false") }}
 
 # Synthesize the clock tree
 
-ccopt_design -cts
+clock_opt_design
 
 # Fix setup time violations by reducing the delay of the slow paths
 
